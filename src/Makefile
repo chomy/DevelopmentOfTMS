@@ -13,7 +13,7 @@ DVI=${SRC_PREFIX}.dvi
 PS=${SRC_PREFIX}.ps
 PDF=../${PREFIX}.pdf
 BOOK=../${PREFIX}-print.pdf
-TEXFILES=main.tex cover.tex intro.tex
+TEXFILES=main.tex cover.tex intro.tex tms.tex
 
 .suffix: .tex .dvi
 
@@ -42,5 +42,5 @@ ${BOOK}: ${PS}
 
 
 clean:
-	rm -f ${DVI} ${PDF} ${PS} ${BOOK} *.log *.aux
+	rm -f ${DVI} ${PDF} ${PS} ${BOOK} *.log *.aux *~
 
