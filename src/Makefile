@@ -13,7 +13,7 @@ DVI=${SRC_PREFIX}.dvi
 PS=${SRC_PREFIX}.ps
 PDF=../${PREFIX}.pdf
 BOOK=../${PREFIX}-print.pdf
-TEXFILES=main.tex cover.tex intro.tex tms.tex sst.tex
+TEXFILES=main.tex cover.tex intro.tex tms.tex sst.tex colophon.tex
 
 .suffix: .tex .dvi
 
