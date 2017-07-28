@@ -22,15 +22,17 @@ h5ファイルの、Geophysical\_dataという項に、1800x3600の2次元デー
 この一つ一つの数値を色に変換して縦1800ピクセル、横3600ピクセルの画像にします。
 簡単ですね。
 
-値と色の対応は、実際に科学で使用されている配色を使いましょう。
-私はoctaveというMATLABクローンを使って作成しました。jetという関数があるのでそれを使って
-jet.txtというRGBとアルファチャンネルを0から255までの値と対応付けます。
-生成方法は、後日追記します。コミケまでに...
-技術書典で購入された方には、前述のgithubページでPDFを公開します。夏コミ後に見に行ってみてください。
+数値を画像にするためには、値と色の対応を決めなければなりません。
+この対応は、pythonのplotライブラリである、matplotlibを使いましょう。
+どのような色使いにするかは、matplotlibのサイトにサンプルがあるので
+そちらを参照してください。(https://matplotlib.org/examples/color/colormaps\_reference.html) 今回はこのような図でよく使われる、jetを使用しました。
+具体的には、Listing \ref{code}のmake\_colortable関数で作っています。
+
+
+%技術書典で購入された方には、前述のgithubページでPDFを公開します。夏コミ後に見に行ってみてください。
 
 ダウンロードしたHDF5ファイルから、GeoTiffへ変換するPythonスクリプトをlisting \ref{code}に示しています。GitHubでデジタルデータを公開しています。
 可視化部分は、listing \ref{code}の11から35行目に記述しています。
-関数make\_colortableで、jet.txtからカラーテーブルを作成します。
 そして関数gey\_bandで、一つ一つの数値をRGBとアルファチャンネルに変換しています。
 変換した、RGBAのチャンネルを37行目からはじまるarray\_to\_raster関数でGeoTiffを作成しています。
 46行目のforループで各チャンネルを書き込んでいます。
@@ -43,15 +45,15 @@ jet.txtというRGBとアルファチャンネルを0から255までの値と対
 印刷物だと色がわからないので、是非GitHubのPDFをご覧ください。
 印刷の都合上、欠損値を黒にしています。生成した画像では透明です。
 低軌道衛星で観測範囲も狭いので、欠損値が多いですね。
-この衛星は3日で全球をスキャンできるので、3日分の観測値を平均した画像を\ref{fig:sst-ave}に示します。ちなみに複数のファイル名を指定して、平均をとっているコードは56行目から始まる関数に書いてあります。numpyを使ってすべてのピクセルをスキャンせずに演算しており、numpyのパワーを実感できます。
+この衛星は3日で全球をスキャンできるので、3日分の観測値を平均した画像を図\ref{fig:sst-ave}に示します。ちなみに複数のファイル名を指定して、平均をとっているコードは56行目から始まる関数に書いてあります。numpyを使ってすべてのピクセルをスキャンせずに演算しており、numpyのパワーを実感できます。
 ちなみに、カラーテーブルを参照するのに最低1回はフルピクセルスキャンが必要なので、私のノートPC(MacbookAir Late2013)で、変換に40秒ほどかかります。
 
 
 \begin{figure}[t]
 \centering
 \scalebox{0.6}{\includegraphics{sst_mono.eps}}
-\caption{タイルのピラミッド構造[1]}
-\label{fig:tile_pylamid}
+\caption{海水面温度}
+\label{fig:sst}
 \end{figure}
 
 \begin{figure}[t]
@@ -60,22 +62,4 @@ jet.txtというRGBとアルファチャンネルを0から255までの値と対
 \caption{海水面温度3日間平均値}
 \label{fig:sst-ave}
 \end{figure}
-
-\section*{ブラウザへの描画}
-作成したGeoTiffを使ってタイルを作成したら、
-LeafletまたはOpenLayersというJavaScriptライブラリを使って、ブラウザに描画することができます。続きはコミケ or GitHubで。
-
-\chapter*{Appendix}
-\lstinputlisting[caption=変換プログラムのソースコード,label=code]{generate_map.py}
-
-
-
-\section*{参考文献}
-         [1] ``Tile Map Service in Geoide'', \texttt{http://geoikia.idgis.eu/wiki-english/index.php}
-       
-       [2] ``Slippy map tilenames'', \texttt{http://wiki.openstreetmap.org/wiki/Slippy\_map\_tilenames}
-       
-[3] GCOM-W1 データ提供サービス \texttt{https://gcom-w1.jaxa.jp/auth.html}
-
-
 
