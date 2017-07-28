@@ -5,6 +5,7 @@ import h5py
 import osr
 import sys
 import numpy as np
+from matplotlib import cm
 
 expand_data = lambda h5: h5['Geophysical Data'][:,:,0]
 
@@ -24,18 +25,16 @@ def get_band(data, ct):
 	return (r,g,b,a)
 
 
-
-def make_colortable(filename):
+def make_colortable():
+	cm.jet.N = 1000
 	ct = gdal.ColorTable(gdal.GPI_RGB)
-	with open(filename) as f:
-		for line in f:
-			row = map(lambda x:int(x), line[:-1].split())
-			ct.SetColorEntry(row[0],tuple(row[1:]))
-
+	for i in range(cm.jet.N):
+		ct.SetColorEntry(i, map(lambda x:int(x*255), cm.jet(i)))
 	return ct
 
-def array_to_raster(outfile, data, ctfile):
-	ct = make_colortable(ctfile)
+
+def array_to_raster(outfile, data):
+	ct = make_colortable()
 	band = get_band(data,ct)
 
 	driver = gdal.GetDriverByName('GTiff')
@@ -78,5 +77,5 @@ def averaged_data(files):
 
 if(__name__=='__main__'):
 	data = averaged_data(sys.argv[2:])
-	array_to_raster(sys.argv[1], data, 'jet.txt')
+	array_to_raster(sys.argv[1], data)
 
