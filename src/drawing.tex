@@ -1,5 +1,41 @@
-\chapter*{ブラウザへの描画}
-作成したGeoTiffを使ってタイルを作成したら、
-LeafletまたはOpenLayersというJavaScriptライブラリを使って、ブラウザに描画することができます。続きはコミケ or GitHubで。
+\chapter*{Leafletによるブラウザへの表示}
 
+タイルサーバを作成したら、ブラウザへの表示を行ってみましょう。
+GoogleMapのようにマウスでぐりぐり動く地図を作るためのJavaScriptライブラリが
+すでに公開されています。
+特に、OpenLayersとLeafletが二大巨塔です。今回はLeafletを使ってブラウザに表示してみます。
+
+\section*{OpenStreetMapの表示}
+
+まずは、ベースタイルとなる、OpenStreetMapを表示するJavaScriptを書いてみます。
+OpenStreetMapを表示するだけなら簡単です。
+Listing \ref{osm_html}と\ref{osm_js}にOSMを表示する
+HTMLとJavaScriptを示します。Listing \ref{osm_js}のJavaScriptは、map.jsという
+ファイル名で保存されているとします。
+
+Listing \ref{osm_html}では、LeafletのCSSとScriptをCDNから読み込んでいるだけです。
+CDNのURLやintegrityは、Leaflet Tutorial (http://leafletjs.com/examples/quick-start/)にあります。
+HTMLのBODYにある、mapというIDが付いたDIV要素に地図が表示されます。
+DIV要素は、デフォルトではサイズが0なので、Stylesheetで地図を表示するサイズを指定します。
+これを忘れると、ちゃんと動いているのに表示されないとハマる事になります。
+今回は、style属性に書いています。
+
+\lstinputlisting[caption=OpenStreetMapの表示 (HTML),label=osm_html]{osm.html}
+
+Listing \ref{osm_js}のスクリプトのほうは、Mapオブジェクトのインスタンスを作成して
+OSMのタイルのURLを指定した、TyleLayerインスタンスを作成後、Mapインスタンスに追加しているだけです。
+MapクラスのsetViewメソッドで地図の中心座標と、ズームレベルを指定しています。
+この例では、北緯35.6299度、東経129.7919度、ズームレベル16を指定しています。
+ビッグサイトのあたりが表示されるはずです。
+
+TileLayerクラスのコンストラクタにタイルのURLと、著作権情報を指定しています。
+タイルのURLはすでに説明しました。
+著作権情報は、OSMの場合は必須です。地理院地図でも同様です。
+どのように記述するかは、各Webページをご覧ください。
+\begin{itemize}
+\item OpenStreetMap http://wiki.openstreetmap.org/wiki/JA:Legal\_FAQ
+  \item 地理院地図 http://maps.gsi.go.jp/help/use.html
+\end{itemize}
+      
+\lstinputlisting[caption=OpenStreetMapの表示 (JavaScript),label=osm_js]{osm.js}
 
