@@ -17,6 +17,9 @@ def get_band(data, ct):
 	a = np.ndarray((1800,3600), np.byte)
 	for y in range(1800):
 		for x in range(3600):
+			i = index(data[y][x])
+			if(i>=1000):
+				i = 999
 			color = ct.GetColorEntry(index(data[y][x]))
 			r[y][x] = color[0]
 			g[y][x] = color[1]
@@ -26,10 +29,12 @@ def get_band(data, ct):
 
 
 def make_colortable():
-	cm.jet.N = 1000
+	cm.jet.N = 256
 	ct = gdal.ColorTable(gdal.GPI_RGB)
 	for i in range(cm.jet.N):
-		ct.SetColorEntry(i, map(lambda x:int(x*255), cm.jet(i)))
+		ct.SetColorEntry(i, tuple(map(lambda x:int(x*255), cm.jet(i))))
+	
+	ct.SetColorEntry(0, (0,0,0,0))
 	return ct
 
 
@@ -75,7 +80,13 @@ def averaged_data(files):
 	count[mask] = 1
 	return np.divide(val.astype(np.double), count.astype(np.double))
 
+def usage():
+	print '%s output_file h5file(s) ...'%sys.argv[0]
+
 if(__name__=='__main__'):
-	data = averaged_data(sys.argv[2:])
-	array_to_raster(sys.argv[1], data)
+	if(len(sys.argv) < 2):
+		usage()
+	else:
+		data = averaged_data(sys.argv[2:])
+		array_to_raster(sys.argv[1], data)
 
