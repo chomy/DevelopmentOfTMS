@@ -2,3 +2,6 @@
 *.dvi
 *.log
 tmp/*
+browser.eps
+sst-ave.eps
+sst.eps
