@@ -42,5 +42,5 @@ ${BOOK}: ${PS}
 
 
 clean:
-	rm -f ${DVI} ${PDF} ${PS} ${BOOK} *.log *.aux *~
+	rm -f ${DVI} ${PS} *.log *.aux *~
 
