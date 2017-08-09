@@ -28,6 +28,8 @@ MapクラスのsetViewメソッドで地図の中心座標と、ズームレベ�
 この例では、北緯35.6299度、東経129.7919度、ズームレベル16を指定しています。
 ビッグサイトのあたりが表示されるはずです。
 
+\lstinputlisting[caption=OpenStreetMapの表示 (JavaScript),label=osm_js]{osm.js}
+
 TileLayerクラスのコンストラクタにタイルのURLと、著作権情報を指定しています。
 タイルのURLはすでに説明しました。
 著作権情報は、OSMの場合は必須です。地理院地図でも同様です。
@@ -36,6 +38,14 @@ TileLayerクラスのコンストラクタにタイルのURLと、著作権情�
 \item OpenStreetMap http://wiki.openstreetmap.org/wiki/JA:Legal\_FAQ
   \item 地理院地図 http://maps.gsi.go.jp/help/use.html
 \end{itemize}
-      
-\lstinputlisting[caption=OpenStreetMapの表示 (JavaScript),label=osm_js]{osm.js}
 
+\section*{タイルのオーバーレイ}
+      
+では、これに今回作ったタイルを重ねましょう。
+Listing \ref{osm_js}を見ればわかるように、tileLayerのインスタンスを作って、
+mapにaddすれば良いでしょう。作成したタイルを重ねたものを表示するJavaScriptをListing \ref{tile.js}に示します。
+違いは、10行目以降です。今回作成したタイルサーバは、TMS準拠ですので
+OSMやGoogleMapと緯度が増える方向が異なります。
+そこで、tileLayerのtmsパラメータにtrueを指定しなければならないことに注意してください。
+
+\lstinputlisting[caption=タイルのオーバーレイ (JavaScript),label=tile_js]{tile.js}
