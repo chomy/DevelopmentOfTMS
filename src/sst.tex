@@ -1,7 +1,6 @@
 \chapter*{GeoTiffファイルの作成}
 
 この章では、タイルの元になるGeoTiffファイルを作成します。
-地図を作るのは（ゼンリンさんから情報を買ったり、OSMのXMLから描画したり）非常に大変ですので、今回は地球観測衛星の観測データを可視化して、OpenStreetMapや地理院地図にオーバーレイするためのタイルを作成しましょう。
 
 今回対象とする衛星は、JAXAのGCOM-W1「しずく」です。
 しずくは、地球の水に関するデータを観測するための衛星で、AMSER2というセンサーを搭載しています。
@@ -59,3 +58,7 @@ h5ファイルの、Geophysical\_dataという項に、1800x3600の2次元デー
 \caption{海水面温度3日間平均値}
 \label{fig:sst-ave}
 \end{figure}
+
+\clearpage
+\lstinputlisting[caption=変換プログラムのソースコード,label=code]{generate_map.py}
+

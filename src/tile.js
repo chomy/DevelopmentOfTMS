@@ -7,6 +7,6 @@ L.tileLayer('http://tile.openstreetmap.jp/{z}/{x}/{y}.png', {
 			+ '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>' 
 }).addTo(mymap);
 
-L.tileLayer('http://tms.example.org/1.0.0/{z}/{x}/{y}.png', {
+L.tileLayer('http://tms.example.org/{z}/{x}/{y}.png', {
 	maxZoom: 2,
 	tms: true}).addTo(mymap);

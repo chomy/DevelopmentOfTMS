@@ -49,3 +49,24 @@ OSMやGoogleMapと緯度が増える方向が異なります。
 そこで、tileLayerのtmsパラメータにtrueを指定しなければならないことに注意してください。
 
 \lstinputlisting[caption=タイルのオーバーレイ (JavaScript),label=tile_js]{tile.js}
+
+作成したHTMLとJSをタイルサーバにデプロイすれば、
+オーバーレイしたマップを図\ref{fig:browser}のように
+表示することができます。
+紙媒体だと、モノクロ印刷なので良くわからないと思います。
+GitHubにカラーのPDFをアップロードしておきますので、そちらを
+ご覧ください。
+\texttt{https://github.com/chomy/DevelopmentOfTMS}
+
+\begin{figure}[t]
+\centering
+\scalebox{0.6}{\includegraphics{browser_mono.eps}}
+\caption{ブラウザに表示したOpenStreetMapにオーバーレイした海水面温度の例}
+\label{fig:browser}
+\end{figure}
+
+
+これで、地球観測衛星の観測データを可視化して、タイルとして
+公開するタイルサーバが完成しました。
+これは(細かい事は別にして)TMSに準拠したXYZタイルサーバですので
+QGISといった、GISソフトはもちろん様々なサービスで使用することができます。
